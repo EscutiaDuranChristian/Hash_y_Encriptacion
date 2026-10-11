@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="light">
     <head>
-        <title>Create User</title>
+        <title>HLI CRUD</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +14,7 @@
             crossorigin="anonymous"
         />
         <link 
-            href="/css/styles.css"
+            href="../static/css/styles.css"
             rel="stylesheet">
     </head>
 

@@ -1,4 +1,4 @@
-{% include "header.html" %}
+{% include "header.html" %} 
 
 <div
     class="main container"
@@ -10,7 +10,7 @@
     <div
         class="col-12 col-md-6    "
     >
-        <form id="loginForm" action="/updateuser" method="post" enctype="multipart/form-data">
+        <form id="loginForm" action="/createuser" method="post" enctype="multipart/form-data">
                 <!---Firstname-->
             <div class="mb-3">
                 <label for="" class="form-label">Firstname</label>
@@ -21,7 +21,6 @@
                     id=""
                     aria-describedby="helpId"
                     placeholder=""
-                    value="{{data[1]}}"
                     required
                 />
             </div>
@@ -33,7 +32,6 @@
                     class="form-control"
                     name="lastname"
                     id=""
-                    value="{{data[2]}}"
                     aria-describedby="helpId"
                     placeholder=""
                     required
@@ -47,7 +45,6 @@
                     class="form-control"
                     name="email"
                     id=""
-                    value="{{data[3]}}"
                     aria-describedby="emailHelpId"
                     placeholder="abc@mail.com"
                 />
@@ -60,7 +57,6 @@
                     class="form-control"
                     name="rfc"
                     id=""
-                    value="{{data[4]}}"
                     aria-describedby="helpId"
                     placeholder=""
                     required
@@ -74,7 +70,6 @@
                     class="form-control"
                     name="curp"
                     id=""
-                    value="{{data[5]}}"
                     aria-describedby="helpId"
                     placeholder=""
                     required
@@ -87,7 +82,7 @@
                     type="date"
                     id="start"
                     name="nac"
-                    value="value="{{data[6]}}""
+                    value="2026-10-11"
                     min="1920-01-01"
                     max="2026-10-11" 
                     required/>
@@ -101,7 +96,6 @@
                     class="form-control"
                     name="tel"
                     id=""
-                    value="{{data[7]}}"
                     aria-describedby="helpId"
                     placeholder=""
                     required
@@ -115,7 +109,6 @@
                     class="form-control"
                     name="emTel"
                     id=""
-                    value="{{data[8]}}"
                     aria-describedby="helpId"
                     placeholder=""
                 />
@@ -129,7 +122,6 @@
                     name="call"
                     id=""
                     aria-describedby="helpId"
-                    value="{{data[9]}}"
                     placeholder=""
                     required
                 />
@@ -143,7 +135,6 @@
                     name="nCasa"
                     id=""
                     aria-describedby="helpId"
-                    value="{{data[10]}}"
                     placeholder=""
                     required
                 />
@@ -158,7 +149,6 @@
                     id=""
                     aria-describedby="helpId"
                     placeholder=""
-                    value="{{data[11]}}"
                     required
                 />
             </div>
@@ -172,7 +162,6 @@
                     id=""
                     aria-describedby="helpId"
                     placeholder=""
-                    value="{{data[12]}}"
                     required
                 />
             </div>
@@ -185,7 +174,6 @@
                     name="imgPic"
                     id=""
                     aria-describedby="helpId"
-                    value="{{data[13]}}"
                     placeholder=""
                 />
             </div>
@@ -198,22 +186,16 @@
                     name="imgBack"
                     id=""
                     aria-describedby="helpId"
-                    value="{{data[14]}}"
                     placeholder=""
                 />
             </div>
             <!---Rol-->
             <div class="mb-3">
                 <label for="" class="form-label">Rol</label>
-                <select name="rol" value="{{data[15]}}">
+                <select name="rol">
                     <option value="0">Usuario</option>
                     <option value="1">Administrador</option>
                 </select>
-            </div>
-            <!--Activo-->
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{data[16]}}" id="" />
-                <label class="form-check-label" for=""> Activo </label>
             </div>
             <!---User Name-->
             <div class="mb-3">
@@ -225,7 +207,6 @@
                     id=""
                     aria-describedby="helpId"
                     placeholder=""
-                    value="{{data[19]}}"
                     required
                 />
             </div>
@@ -239,7 +220,6 @@
                     name="pass"
                     id=""
                     placeholder=""
-                    value="{{data[20]}}"
                     required
                 />
             </div>
@@ -247,11 +227,10 @@
             <div class="d-grid gap-2">
                 <button
                     type="submit"
-                    name="id"
+                    name=""
                     id=""
                     class="btn btn-primary box-shadow-white"
-                    value="{{data[0]}}"
-                > Update user
+                > Create user
                 </button>
             </div>
         </form>
@@ -263,12 +242,12 @@
     >
             <!---Img-->
         <img
-            src="/img/Logo.png"
+            src="static/img/Logo.png"
             class="Logo box-shadow-white"
             alt="image desc"
         />    
     </div>
     </div>  
 </div>
-  
+
 {% include "footer.html" %}
