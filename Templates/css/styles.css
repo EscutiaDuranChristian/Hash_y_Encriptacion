@@ -46,3 +46,18 @@ body{
     width: 100%;
 
 }
+
+.slidein {
+  animation: slidein 1s ease-out;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
