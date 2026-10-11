@@ -1,7 +1,7 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session
 import os
 import requests
-import datetime
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -42,7 +42,7 @@ def login():
 
 @app.route('/usersView')
 def UsersView():
-    render_template("/usersView.html", session=session)
+    return render_template("/usersView.html", session=session)
     
 @app.route("/createuser")
 def form_user():
@@ -111,7 +111,6 @@ def Update():
     # Archivos
     imgPic = request.files.get("imgPic")
     imgBack = request.files.get("imgBack")
-    
     
     
     return redirect("usersView")
