@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <title>Users View</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS v5.3.8 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous"
+        />
+        <link href="css/styles.css"
+         rel="stylesheet"
+        >
+    </head>
+
+    <body>
+        <header>
+            <!-- place navbar here -->
+        </header>
+        <main>
+            <div class="container" >
+                <div class="row">
+                    <div
+                        class="col-md-7"
+                    >
+                        <!---- Picture ---->
+                        <img class="banner" src="img/Conjunto.png">
+                        <img class="card-img-top profile"  src="img/Chambeador 2.png" alt="Title" />
+                    </div>
+                    <div class="col-md-5" >
+                        <!--- Informacion de usuario ---->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Firstname: Firstname</h4>
+                                <h4 class="card-title">Lastname: Lastname</h4>
+                                <h4 class="card-title">Address:</h4>
+                                <p class="card-text">Streat Col State Country</p>
+                                <h4 class="card-title">Postal Code: 38970</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr  style="width: 100%; border: 30px 1px black;">
+            <center><h3>Usuarios:</h3></center>
+            <!------ Lista usuarios ------->
+            <div class="container">
+                <div class="row">
+                    <div class="col-4" >
+                        <div class="card" style="text-align: center; align-items: center; width: 100%;">
+                            <img class="card-img-top" src="img/Chambeador 2.png" alt="Title" style="width: 30%;" />
+                            <div class="card-body">
+                                <h4 class="card-title">UserName: UserName</h4>
+                            </div>
+                            <!------- Solo admin ---------->
+                            <div class="container" style="margin-left: -5%;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <!----Boton actualizar----->
+                                        <form action="/update" method="post">
+                                            <button
+                                                type="submit"
+                                                class="btn btn-outline-success"
+                                                value="{{ user.id }}"
+                                            > Update </button>
+                                        </form>
+                                    </div>
+                                    <div
+                                        class="col-6"
+                                    >
+                                        <!----Boton Borrar----->
+                                        <form action="/delete" method="post">
+                                            <button
+                                                type="submit"
+                                                class="btn btn-outline-danger"
+                                                value="{{ user.id }}"
+                                            > Delete </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </main>
+        <footer>
+            <!-- place footer here -->
+        </footer>
+        <!-- Bootstrap JavaScript Bundle (includes Popper) -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+
+        </script>
+    </body>
+</html>
