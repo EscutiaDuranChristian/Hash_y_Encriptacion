@@ -42,7 +42,7 @@ def login():
 
 @app.route('/usersView')
 def UsersView():
-    return render_template("/usersView.html", session=session)
+    return render_template("usersView.html", session=session)
     
 @app.route("/createuser")
 def form_user():
