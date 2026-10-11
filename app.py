@@ -40,7 +40,7 @@ def login():
         return redirect("/usersView")
     return render_template("index.html", message="Usuario y/o contraseña incorrecto(s)")
 
-@app.route('/usersView')
+@app.route('usersView')
 def UsersView():
     return render_template("/usersView.html", session=session)
     
@@ -87,7 +87,7 @@ def UpdatePage():
     id = request.form["id"]
     #Obtener datos
     datos = []
-    return render_template('updateUser.html', datos)
+    return render_template('updateUser.html', datos=datos)
 
 @app.route("/updateuser", methods=['POST'])
 def Update():
