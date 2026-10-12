@@ -6,6 +6,9 @@ from config import Config, DevelopmentConfig
 
 app = Flask(__name__)
 
+
+app = Flask(__name__, template_folder="templates", static_folder="static")
+
 """
 Cargar la configuración desde el archivo config.py
 El método from_object() de Flask se utiliza para cargar la configuración de una aplicación Flask a partir de una clase u objeto Python.
