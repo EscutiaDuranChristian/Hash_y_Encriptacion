@@ -1,127 +1,30 @@
-from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session
-import os
-import requests
-from datetime import datetime
-
+from flask import Flask, redirect, url_for
+# Importando todas las rutas desde Routers
+from routers import registrar_rutas
+# Importando la configuración del proyecto
+from config import Config, DevelopmentConfig
 
 app = Flask(__name__)
-app.secret_key = "loslicsenciadosrifan"
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), "static", "img")
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+"""
+Cargar la configuración desde el archivo config.py
+El método from_object() de Flask se utiliza para cargar la configuración de una aplicación Flask a partir de una clase u objeto Python.
+"""
+app.config.from_object(DevelopmentConfig)
+# print(app.config['SQLBD']['DATABASE_URI']) # Esto imprime la URI de la base de datos configurada
+print(f"Secret Key: {app.config['SECRET_KEY']}") # Esto imprime la clave secreta configurada (en este caso, app.config['SECRET_KEY'])
+print(f"Debug: {app.config['DEBUG']}")
 
-def obtenerNuevonombre(img):
-    fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
-    if img and img.filename != "":
-        filename_pic = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
-        img.save(os.path.join(app.config["UPLOAD_FOLDER"], filename_pic))
-        return filename_pic
-    return None
-        
+# Registrar las rutas desde el archivo externo
+registrar_rutas(app)
 
-@app.route("/")
-def root():
-    return render_template("index.html")
 
-@app.route("/login", methods=["POST"])
-def login():
-    user = request.form["user"]
-    password = request.form["pass"]
-    if user == "admin" and password == "123":
-        session['user'] = user
-        session['rol'] = 'admin'
-        session['firstname'] = 'Christian'
-        session['lastname'] = 'Escutia'
-        session['streat'] = 'Carrara'
-        session['number'] = '120A'
-        session['col'] = 'Ancona'
-        session['cp'] = '38920'
-        return redirect("/usersView")
-    return render_template("index.html", message="Usuario y/o contraseña incorrecto(s)")
+# Manejo de error 404
+@app.errorhandler(404)
+def not_found(error):
+    return redirect(url_for('ruta_inicio'))
 
-@app.route('/usersView')
-def UsersView():
-    return render_template("usersView.html", session=session)
-    
-@app.route("/createuser")
-def form_user():
-    return render_template("createUser.html")
 
-@app.route("/createuser", methods=["POST"])
-def create_user():
-    firstname = request.form["firstname"]
-    lastname = request.form["lastname"]
-    email = request.form["email"]
-    rfc = request.form["rfc"]
-    curp = request.form["curp"]
-    nac = request.form["nac"]
-    tel = request.form["tel"]
-    emTel = request.form.get("emTel")  # opcional
-    call = request.form["call"]
-    nCasa = request.form["nCasa"]
-    col = request.form["col"]
-    cp = request.form["cp"]
-    rol = request.form["rol"]
-    user = request.form["user"]
-    password = request.form["pass"]
-
-    # Archivos
-    imgPic = request.files.get("imgPic")
-    imgBack = request.files.get("imgBack")
-    
-    imgPic = obtenerNuevonombre(imgPic)
-    imgBack = obtenerNuevonombre(imgBack)
-    
-    return redirect('/usersView')
-    
-
-@app.route("/delete", methods=['POST'])
-def Delete():
-    id = request.form["id"]
-    #Borrar
-    return redirect('/usersView')
-
-@app.route("/update", methods=['POST'])
-def UpdatePage():
-    id = request.form["id"]
-    #Obtener datos
-    datos = []
-    return render_template('updateUser.html', datos=datos)
-
-@app.route("/updateuser", methods=['POST'])
-def Update():
-    id = request.form["id"]
-    firstname = request.form["firstname"]
-    lastname = request.form["lastname"]
-    email = request.form["email"]
-    rfc = request.form["rfc"]
-    curp = request.form["curp"]
-    nac = request.form["nac"]
-    tel = request.form["tel"]
-    emTel = request.form.get("emTel")  # opcional
-    call = request.form["call"]
-    nCasa = request.form["nCasa"]
-    col = request.form["col"]
-    cp = request.form["cp"]
-    rol = request.form["rol"]
-    user = request.form["user"]
-    password = request.form["pass"]
-
-    # Archivos
-    imgPic = request.files.get("imgPic")
-    imgBack = request.files.get("imgBack")
-    
-    
-    return redirect("/usersView")
-    
-@app.route("/css/<css>")
-def css(css):
-    return send_from_directory(os.path.join("Templates/css/"), css)
-
-@app.route("/img/<img>")
-def img(img):
-    return send_from_directory(os.path.join("Templates/img/"), img)
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    # Accede directamente a las configuraciones de Config en lugar de app.config
+    app.run(debug=Config.DEBUG, port=Config.PORT)
