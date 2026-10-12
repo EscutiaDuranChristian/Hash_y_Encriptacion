@@ -2,17 +2,15 @@ from flask import render_template, request, redirect, url_for, session
 import requests
 from datetime import datetime
 import os
-from app import app
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "static", "img")
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def obtenerNuevonombre(img):
     fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
     if img and img.filename != "":
         filename_pic = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
-        img.save(os.path.join(app.config["UPLOAD_FOLDER"], filename_pic))
+        #Guardar archivo
         return filename_pic
     return None
         
@@ -37,10 +35,10 @@ def login():
     return render_template("index.html", message="Usuario y/o contraseña incorrecto(s)")
 
 def UsersView():
-    return render_template("usersView.html", session=session)
+    return render_template("api/usersView.html", session=session)
     
 def form_user():
-    return render_template("createUser.html")
+    return render_template("pages/createUser.html")
 
 def create_user():
     firstname = request.form["firstname"]
@@ -78,7 +76,7 @@ def UpdatePage():
     id = request.form["id"]
     #Obtener datos
     datos = []
-    return render_template('updateUser.html', datos=datos)
+    return render_template('pages/updateUser.html', datos=datos)
 
 def Update():
     id = request.form["id"]

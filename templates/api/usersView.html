@@ -1,4 +1,4 @@
-{% include "header.html" %}
+{% include "bases/header.html" %}
 
 <div class="container" >
     <div class="row">
@@ -7,14 +7,14 @@
         >
             <!-- Picture -->
              {%if session['fondo']%}
-            <img class="banner" src="/img/{{session['fondo']}}">
+            <img class="banner" src="static/img/{{session['fondo']}}">
             {% else %}
-            <img class="banner" src="/img/defaultBack.png">
+            <img class="banner" src="static/img/defaultBack.png">
             {% endif %}
              {%if session['pic']%}
-            <img class="card-img-top profile"  src="/img/{{session['pic']}}" alt="Title" />
+            <img class="card-img-top profile"  src="static/img/{{session['pic']}}" alt="Title" />
             {% else %}
-            <img class="card-img-top profile"  src="/img/defaultPic.png" alt="Title" />
+            <img class="card-img-top profile"  src="static/img/defaultPic.png" alt="Title" />
             {% endif %}
         </div>
         <div class="col-md-5" >
@@ -40,15 +40,15 @@
             {% for user in users %}
             {% if user.imagen_fondo_url %}
             <div class="card" style="text-align: center; align-items: center; width: 100%;
-                                      background-image: url(/img/{{user.imagen_fondo_url}});">
+                                      background-image: url(static/img/{{user.imagen_fondo_url}});">
             {% else %}
             <div class="card" style="text-align: center; align-items: center; width: 100%;
                                       background-image: url(/img/defaultBack.png);">
             {% endif %}
                 {% if user.imagen_usuario_url %}
-                <img class="card-img-top" src="/img/{{user.imagen_usuario_url}}" alt="Title" style="width: 30%;" />
+                <img class="card-img-top" src="static/img/{{user.imagen_usuario_url}}" alt="Title" style="width: 30%;" />
                 {% else %}
-                <img class="card-img-top" src="/img/defaultPic.png" alt="Title" style="width: 30%;" />
+                <img class="card-img-top" src="static/img/defaultPic.png" alt="Title" style="width: 30%;" />
                 {% endif %}
 
                 <div class="card-body">
@@ -102,4 +102,4 @@
 >
  {% endif %}
 
-{% include "footer.html" %}
+{% include "bases/footer.html" %}
