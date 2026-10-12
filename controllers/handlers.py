@@ -1,17 +1,16 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, current_app
 import requests
 from datetime import datetime
 import os
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), "static", "img")
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 def obtenerNuevonombre(img):
-    fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
     if img and img.filename != "":
-        filename_pic = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
-        #Guardar archivo
-        return filename_pic
+        fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
+        ruta_guardado = os.path.join(current_app.root_path, "static", "img", filename)
+
+        img.save(ruta_guardado)
+        return filename
     return None
         
 
@@ -100,5 +99,6 @@ def Update():
     imgPic = request.files.get("imgPic")
     imgBack = request.files.get("imgBack")
     
-    
+    imgPic = obtenerNuevonombre(imgPic)
+    imgBack = obtenerNuevonombre(imgBack)
     return redirect("/usersView")
