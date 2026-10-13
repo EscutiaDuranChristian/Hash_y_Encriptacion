@@ -2,7 +2,7 @@
 {% include "bases/navbar.html" %}
 
 {% if message %}
-        <div class="card bg-danger slidein" style="color:aliceblue;">
+        <div class="card bg-danger slidein" style="color:aliceblue; margin-top:3%;">
             <div class="card-body">
                 <h4 class="card-title">Algo salio mal</h4>
                 <p class="card-text">{{message}}</p>
@@ -10,120 +10,125 @@
         </div>
 {% endif %}
 
-<form id="loginForm" action="/updateuser" method="post" enctype="multipart/form-data" style="width:50%; margin-left: 25%">
-    <!-- Firstname -->
-    <div class="mb-3">
-        <label class="form-label">Firstname</label>
-        <input type="text" class="form-control" name="firstname" value="{{user.nombre}}" required />
-    </div>
+<form id="loginForm" action="/updateuser" method="post" enctype="multipart/form-data" class="container mt-4">
 
-    <!-- Lastname -->
-    <div class="mb-3">
-        <label class="form-label">Lastname</label>
-        <input type="text" class="form-control" name="lastname" value="{{user.apellido}}" required />
+    <!-- Nombre y Apellido -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Firstname</label>
+            <input type="text" class="form-control" name="firstname" value="{{user.nombre}}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Lastname</label>
+            <input type="text" class="form-control" name="lastname" value="{{user.apellido}}" required>
+        </div>
     </div>
 
     <!-- Email -->
-    <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" value="{{user.email}}" />
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" value="{{user.email}}">
+        </div>
     </div>
 
-    <!-- RFC -->
-    <div class="mb-3">
-        <label class="form-label">RFC</label>
-        <input type="text" class="form-control" name="rfc" value="{{user.rfc}}" minlength="12" maxlength="12" required />
-    </div>
-
-    <!-- CURP -->
-    <div class="mb-3">
-        <label class="form-label">CURP</label>
-        <input type="text" class="form-control" name="curp" value="{{user.curp}}" required />
+    <!-- RFC y CURP -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">RFC</label>
+            <input type="text" class="form-control" name="rfc" value="{{user.rfc}}" minlength="12" maxlength="12" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">CURP</label>
+            <input type="text" class="form-control" name="curp" value="{{user.curp}}" required>
+        </div>
     </div>
 
     <!-- Fecha de nacimiento -->
-    <div class="mb-3">
-        <label class="form-label">Fecha de nacimiento</label>
-        <input type="date" class="form-control" name="nac" value="{{user.fecha_nacimiento}}" min="1920-01-01" max="2026-10-11" required />
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" name="nac" value="{{user.fecha_nacimiento}}" min="1920-01-01" max="2026-10-11" required>
+        </div>
     </div>
 
-    <!-- Teléfono -->
-    <div class="mb-3">
-        <label class="form-label">Phone number</label>
-        <input type="number" class="form-control" name="tel" value="{{user.telefono}}" required />
+    <!-- Teléfonos -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Phone number</label>
+            <input type="number" class="form-control" name="tel" value="{{user.telefono}}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Emergency Phone number</label>
+            <input type="number" class="form-control" name="emTel" value="{{user.telefono_emergencia}}">
+        </div>
     </div>
 
-    <!-- Teléfono emergencia -->
-    <div class="mb-3">
-        <label class="form-label">Emergency Phone number</label>
-        <input type="number" class="form-control" name="emTel" value="{{user.telefono_emergencia}}" />
+    <!-- Dirección -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Street</label>
+            <input type="text" class="form-control" name="call" value="{{user.calle}}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">House number</label>
+            <input type="text" class="form-control" name="nCasa" value="{{user.numero}}" required>
+        </div>
     </div>
 
-    <!-- Calle -->
-    <div class="mb-3">
-        <label class="form-label">Street</label>
-        <input type="text" class="form-control" name="call" value="{{user.calle}}" required />
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Residence</label>
+            <input type="text" class="form-control" name="col" value="{{user.colonia}}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Postal code</label>
+            <input type="number" class="form-control" name="cp" value="{{user.codigo_postal}}" required>
+        </div>
     </div>
 
-    <!-- Número -->
-    <div class="mb-3">
-        <label class="form-label">Numero de casa</label>
-        <input type="text" class="form-control" name="nCasa" value="{{user.numero}}" required />
-    </div>
-
-    <!-- Colonia -->
-    <div class="mb-3">
-        <label class="form-label">Residence</label>
-        <input type="text" class="form-control" name="col" value="{{user.colonia}}" required />
-    </div>
-
-    <!-- Código postal -->
-    <div class="mb-3">
-        <label class="form-label">Postal code</label>
-        <input type="number" class="form-control" name="cp" value="{{user.codigo_postal}}" required />
-    </div>
-
-    <!-- Imagen usuario -->
-    <div class="mb-3">
-        <label class="form-label">User profile picture</label>
-        <input type="file" class="form-control" name="imgPic" />
-    </div>
-
-    <!-- Imagen de fondo -->
-    <div class="mb-3">
-        <label class="form-label">User background picture</label>
-        <input type="file" class="form-control" name="imgBack" />
+    <!-- Imágenes -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">User profile picture</label>
+            <input type="file" class="form-control" name="imgPic">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">User background picture</label>
+            <input type="file" class="form-control" name="imgBack">
+        </div>
     </div>
 
     <!-- Rol -->
-    <div class="mb-3">
-        <label class="form-label">Rol</label>
-        <select name="rol">
-            <option value="usuario" {% if user.rol == "usuario" %}selected{% endif %}>Usuario</option>
-            <option value="admin" {% if user.rol == "admin" %}selected{% endif %}>Administrador</option>
-        </select>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Rol</label>
+            <select class="form-select" name="rol">
+                <option value="usuario" {% if user.rol == "usuario" %}selected{% endif %}>Usuario</option>
+                <option value="admin" {% if user.rol == "admin" %}selected{% endif %}>Administrador</option>
+            </select>
+        </div>
     </div>
 
-    <!-- User Name -->
-    <div class="mb-3">
-        <label class="form-label">User Name</label>
-        <input type="text" class="form-control" name="user" value="{{user.usuario}}" required />
+    <!-- Usuario y contraseña -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">User Name</label>
+            <input type="text" class="form-control" name="user" value="{{user.usuario}}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="pass" minlength="8" required>
+        </div>
     </div>
 
-    <!-- Password -->
-    <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" name="pass" minlength="8" required />
-    </div>
-
-
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="activo" value="true"
-            {% if user.activo == 1 %}checked{% endif %}>
+    <!-- Activo -->
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" name="activo" value="true" {% if user.activo == 1 %}checked{% endif %}>
         <label class="form-check-label">Activo</label>
     </div>
 
-    <!-- Botón submit con id -->
+    <!-- Botón -->
     <div class="d-grid gap-2">
         <button type="submit" name="id" value="{{user.id}}" class="btn btn-primary box-shadow-white">
             Update user

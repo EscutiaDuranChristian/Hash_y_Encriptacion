@@ -1,6 +1,15 @@
 {% include "bases/header.html" %}
 {% include "bases/navbar.html" %}
 
+{% if message %}
+        <div class="card bg-danger slidein" style="color:aliceblue; margin-top:3%;">
+            <div class="card-body">
+                <h4 class="card-title">Algo salio mal</h4>
+                <p class="card-text">{{message}}</p>
+            </div>
+        </div>
+{% endif %}
+
 <div class="container" style="margin-top:5%">
     <div class="row">
         <div
@@ -8,12 +17,12 @@
         >
             <!-- Picture -->
              {%if session['fondo']%}
-            <img class="banner" src="tmp/img/{{session['fondo']}}">
+            <img class="banner" src="static/img/{{session['fondo']}}">
             {% else %}
             <img class="banner" src="static/img/defaultBack.png">
             {% endif %}
              {%if session['pic']%}
-            <img class="card-img-top profile"  src="tmp/img/{{session['pic']}}" alt="Title" />
+            <img class="card-img-top profile"  src="static/img/{{session['pic']}}" alt="Title" />
             {% else %}
             <img class="card-img-top profile"  src="static/img/defaultPic.png" alt="Title" />
             {% endif %}
@@ -40,60 +49,44 @@
 <center><h3>Usuarios:</h3></center>
 <!-- Lista usuarios -->
 <div class="container">
-    <div class="row">
+    <div class="row" style="width:100%;">
         {% for user in usuarios %}
-        <div class="col-md-6" style="width:100% left:0" >
-            {% if user.imagen_fondo_url %}
-            <div class="card" style="text-align: center; align-items: center; width: 100%;
-                                      background-image: url(tmp/img/{{user.imagen_fondo_url}});  background-size:cover;">
-            {% else %}
-            <div class="card" style="text-align: center; align-items: center; width: 100%;
-                                      background-image: url(static/img/defaultBack.png); background-size:cover;">
-            {% endif %}
-                {% if user.imagen_usuario_url %}
-                <img class="card-img-top" src="tmp/img/{{user.imagen_usuario_url}}" alt="Title" style="width: 30%;" />
-                {% else %}
-                <img class="card-img-top" src="static/img/defaultPic.png" alt="Title" style="width: 30%;" />
-                {% endif %}
+        <div class="col-md-6 mb-3">
+            <div class="card text-center text-white card_usuario_lista" 
+                 style="background-image: url(static/img/{{user.imagen_fondo_url or 'defaultBack.png'}}); 
+                        background-size: cover; ">
+                
+                <form action="/viewUser" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <button type="submit" style="border:none; background:none; padding:0;">
+                        <img class="usuario_foto_lista escalar" 
+                            src="static/img/{{user.imagen_usuario_url or 'defaultPic.png'}}" 
+                            alt="Foto de perfil" />
+                    </button>
+                </form>
 
-                <div class="card-body text-white">
+
+                <div class="card-body">
                     <h4 class="card-title">User: {{user.usuario}}</h4>
                     <p>Email: {{user.email}}</p>
                     <p>Rol: {{user.rol}}</p>
                 </div>
+
                 {% if session['rol'] == 'admin' %}
-                <div class="card-body text-white">
-                    <h4 class="card-title">Address</h4>
-                    <p> {{user.colonia}} {{user.calle}} {{user.numero}}</p>
-                    <h4 class="card-title">Activo: {{user.activo}}</h4>
-                </div>
-                <!-- Solo admin -->
-                <div class="container" style="margin-left: -5%;">
-                    <div class="row">
-                        <div class="col-6">
-                            <!--Boton actualizar-->
-                            <form action="/update" method="post">
-                                <button
-                                    type="submit"
-                                    class="btn btn-outline-success"
-                                    name = "id"
-                                    value="{{ user.id }}"
-                                > Update </button>
-                            </form>
-                        </div>
-                        <div
-                            class="col-6"
-                        >
-                            <!--Boton Borrar-->
-                            <form action="/delete" method="post">
-                                <button
-                                    type="submit"
-                                    class="btn btn-outline-danger"
-                                    name="id"
-                                    value="{{ user.id }}"
-                                > Delete </button>
-                            </form>
-                        </div>
+                <div class="row px-3 pb-3">
+                    <div class="col-6">
+                        <form action="/update" method="post">
+                            <button type="submit" class="btn btn-outline-success" name="id" value="{{ user.id }}">
+                                Update
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <form action="/delete" method="post">
+                            <button type="submit" class="btn btn-outline-danger" name="id" value="{{ user.id }}">
+                                Delete
+                            </button>
+                        </form>
                     </div>
                 </div>
                 {% endif %}
@@ -102,6 +95,7 @@
         {% endfor %}
     </div>
 </div>
+
 
 {% if session['rol'] == 'admin' %}
 <a

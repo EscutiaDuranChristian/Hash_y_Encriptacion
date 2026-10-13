@@ -1,20 +1,18 @@
 from flask import render_template, request, redirect, session, current_app
-import requests
 from datetime import datetime
 import os
+import requests
 import jwt
 
 
 API_BASE = "https://api-usuarios-gerogevt2026.azurewebsites.net"
 
+
 def obtenerNuevonombre(img):
     if img and img.filename != "":
         fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
-        
-        ruta_guardado = os.path.join("/tmp", "img", filename)
-        os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
-        
+        ruta_guardado = os.path.join(current_app.root_path, "static", "img", filename)
         return filename, ruta_guardado, img
     return None, None, None
 
@@ -89,7 +87,7 @@ def UsersView():
         usuarios = resp.json()  # lista de usuarios
         return render_template("api/usersView.html", usuarios=usuarios, session=session)
     else:
-        return "Error al obtener usuarios"
+        return  render_template("api/usersView.html", message = "Cant get users")
 
     
 def form_user():
@@ -176,7 +174,7 @@ def Delete():
     if resp.status_code == 200:
         return redirect("/usersView")
     else:
-        return f"Error al eliminar usuario: {resp.text}"
+        return render_template("api/usersView.html", message =  f"Cant delete user: {resp.text}")
 
 def UpdatePage():
     token = session.get("jwt")
@@ -190,7 +188,7 @@ def UpdatePage():
     if user_resp.status_code == 200:
         usuario = user_resp.json()
         return render_template('pages/updateUser.html', user = usuario)
-    else: return "Cant get user"
+    else: return render_template("api/usersView.html", message =  f"Cant get user")
 
 def Update():
     token = session.get("jwt")
@@ -259,3 +257,17 @@ def Update():
         return redirect("/usersView")
     else:
         return render_template("pages/updateUser.html", message=f"Error al actualizar usuario: {resp.text}")
+    
+def verUsuario():
+    token = session.get("jwt")
+    if not token:
+        return redirect("/")
+        
+    id = request.form["id"]
+    headers = {"Authorization": f"Bearer {token}"}
+    user_resp = requests.get(f"{API_BASE}/usuarios/{id}", headers=headers)
+        
+    if user_resp.status_code == 200:
+        usuario = user_resp.json()
+        return render_template('api/userView.html', user = usuario) 
+    else: return render_template("api/usersView.html", message = "Cant get user. Are you sure this user exist?")

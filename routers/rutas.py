@@ -1,4 +1,4 @@
-from controllers import root, login, logout, UsersView, form_user, create_user, Delete, UpdatePage, Update
+from controllers import root, login, logout, UsersView, form_user, create_user, Delete, UpdatePage, Update, verUsuario
 
 def registrar_rutas(app):
     @app.route('/')
@@ -36,3 +36,7 @@ def registrar_rutas(app):
     @app.route("/updateuser", methods=['POST'])
     def ruta_update():
         return Update()
+    
+    @app.route("/viewUser", methods=['POST'])
+    def ruta_view_user():
+        return verUsuario()

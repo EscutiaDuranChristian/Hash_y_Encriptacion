@@ -1,0 +1,41 @@
+{% include "bases/header.html" %}
+{% include "bases/navbar.html" %}
+
+<div class="container mt-4">
+  <div class="card text-center shadow" style="max-width: 500px; margin: auto; margin-top: 5%;">
+    
+    <!-- Imagen de usuario -->
+    {% if user.imagen_usuario_url %}
+      <img src="static/img/{{user.imagen_usuario_url}}" class="card-img-top" alt="User profile picture" style="object-fit: cover; height: 200px;">
+    {% else %}
+      <img src="static/img/defaultPic.png" class="card-img-top" alt="Default profile picture" style="object-fit: cover; height: 200px;">
+    {% endif %}
+    
+    <div class="card-body">
+      <!-- Nombre y usuario -->
+      <h4 class="card-title">{{user.nombre}} {{user.apellido}}</h4>
+      <p class="card-text"><strong>Usuario:</strong> {{user.usuario}}</p>
+      <p class="card-text"><strong>Email:</strong> {{user.email}}</p>
+      <p class="card-text"><strong>Rol:</strong> {{user.rol}}</p>
+      <p class="card-text"><strong>Activo:</strong> {% if user.activo == 1 %}Sí{% else %}No{% endif %}</p>
+    </div>
+
+    <!-- Solo admin -->
+    {% if session['rol'] == 'admin' %}
+    <ul class="list-group list-group-flush text-start">
+      <li class="list-group-item"><strong>RFC:</strong> {{user.rfc}}</li>
+      <li class="list-group-item"><strong>CURP:</strong> {{user.curp}}</li>
+      <li class="list-group-item"><strong>Fecha nacimiento:</strong> {{user.fecha_nacimiento}}</li>
+      <li class="list-group-item"><strong>Teléfono:</strong> {{user.telefono}}</li>
+      <li class="list-group-item"><strong>Tel. Emergencia:</strong> {{user.telefono_emergencia}}</li>
+      <li class="list-group-item"><strong>Dirección:</strong> {{user.calle}} #{{user.numero}}, {{user.colonia}}, CP {{user.codigo_postal}}</li>
+    </ul>
+
+    <div class="card-footer text-muted">
+      <small>Creado: {{user.fecha_creacion}} | Actualizado: {{user.fecha_actualizacion}}</small>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% include "bases/footer.html" %}

@@ -53,11 +53,36 @@ body{
 
 @keyframes slidein {
   from {
-    transform: translateX(-100%);
+    transform: translateY(-100%);
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateY(0);
     opacity: 1;
   }
+}
+
+.escalar {
+    transition: transform 2s ease;
+}
+
+.escalar:hover {
+    transform: scale(1.5);
+}
+
+.card_usuario_lista {
+    min-height: 350px;   
+    max-height: 350px;   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.usuario_foto_lista {
+    object-fit: cover;   
+    width: 150px;        
+    height: 150px;
+    border-radius: 50%;  
+    display: block;
+    margin: 0 auto;      
 }
