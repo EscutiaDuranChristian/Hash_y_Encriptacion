@@ -11,10 +11,13 @@ def obtenerNuevonombre(img):
     if img and img.filename != "":
         fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
+        
         ruta_guardado = os.path.join("/tmp", "img", filename)
         os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
+        
         return filename, ruta_guardado, img
     return None, None, None
+
 
 def root():
     return render_template("index.html")
