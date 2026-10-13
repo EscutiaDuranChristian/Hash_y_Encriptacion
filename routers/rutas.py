@@ -1,5 +1,4 @@
-from controllers import root, login, UsersView, form_user, create_user, Delete, UpdatePage, Update
-
+from controllers import root, login, logout, UsersView, form_user, create_user, Delete, UpdatePage, Update
 
 def registrar_rutas(app):
     @app.route('/')
@@ -9,6 +8,10 @@ def registrar_rutas(app):
     @app.route("/login", methods=["POST"])
     def ruta_login():
         return login()
+    
+    @app.route("/logout")
+    def ruta_logout():
+        return logout();
 
     @app.route('/usersView')
     def ruta_vista_usuarios():
