@@ -11,7 +11,7 @@ def obtenerNuevonombre(img):
     if img and img.filename != "":
         fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"{os.path.splitext(img.filename)[0]}_{fecha}{os.path.splitext(img.filename)[1]}"
-        ruta_guardado = os.path.join(current_app.root_path, "static", "img", filename)
+        ruta_guardado = os.path.join(current_app.root_path, "tmp", "img", filename)
 
         return filename, ruta_guardado, img
     return None, None, None
